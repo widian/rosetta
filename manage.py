@@ -211,7 +211,9 @@ def run_server(config_hint, port):
     app = create_application(config_file_path)
 
     from application.apis import api_bp
+    from application.pages import page_bp
     app.register_blueprint(api_bp)
+    app.register_blueprint(page_bp)
     app.run(port=port)
 
 

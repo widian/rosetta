@@ -22,3 +22,5 @@ def get_translations():
         for found_sentence in found_sentences)
 
     return api_bp.make_response(status=API_STATUS_OK, result=result_dicts)
+
+
