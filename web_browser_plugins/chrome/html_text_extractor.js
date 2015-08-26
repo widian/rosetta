@@ -25,13 +25,7 @@ function collectTextNodes(tag, element, items) {
 function reprElement(element) {
     var items = [];
     collectTextNodes('', element, items);
-
-    var texts = []
-    for (var i = 0; i != items.length; i++ ) {
-        texts.push(i + ':' + items[i].tag + ':' + items[i].text);
-    }
-
-    return texts.join('\n---------------\n');
+    return items;
 }
 
 chrome.extension.sendMessage({
