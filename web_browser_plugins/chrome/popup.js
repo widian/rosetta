@@ -1,3 +1,5 @@
+var ONLOAD_CALLED_ONCE = false;
+
 chrome.extension.onMessage.addListener(function(request, sender) {
     if (request.action == "onTextExtracted") {
     var texts = [];
@@ -10,11 +12,16 @@ chrome.extension.onMessage.addListener(function(request, sender) {
 });
 
 function onWindowLoad() {
+    if (ONLOAD_CALLED_ONCE) {
+        return;
+    } else {
+        ONLOAD_CALLED_ONCE = true;
+    }
     chrome.tabs.executeScript(null, {
         file: "html_text_extractor.js"
     }, function() {
         if (chrome.extension.lastError) {
-            var message = document.querySelector('#message');
+            var message = $('div#message');//document.querySelector('#message');
             message.innerText = 'There was an error injecting script : \n' +
         chrome.extension.lastError.message;
         }
@@ -26,11 +33,18 @@ function onWindowLoad() {
     });
     $('button#translate').on('click', function(e) {
 //      문장을 번역할 수 있는 페이지를 오픈함.
-    
+        chrome.tabs.create({
+            url: "http://127.0.0.1:5000/page"
+        });
     });
     $('button#show-translation').on('click', function(e) {
 //      번역된 문장을 불러와서 볼 수 있게함.
-        
+        chrome.tabs.getSelected(function(e) { 
+            $('div#debug-window').html(e.id);
+        });
+        chrome.tabs.executeScript(
+            {file : "injector.js"}, function(e) { }
+        );
     });
 
 

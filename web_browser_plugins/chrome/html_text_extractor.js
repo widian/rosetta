@@ -32,3 +32,5 @@ chrome.extension.sendMessage({
     action: "onTextExtracted",
     source: reprElement(document)
 });
+
+
