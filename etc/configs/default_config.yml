@@ -5,3 +5,4 @@ DB_CREATE_ALL: off
 SQLALCHEMY_ECHO: on
 SQLALCHEMY_DATABASE_URI: "sqlite:///:memory:"
 
+DEBUG_PAGES: off

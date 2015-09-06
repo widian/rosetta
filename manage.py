@@ -214,6 +214,9 @@ def run_server(config_hint, port):
     from application.pages import page_bp
     app.register_blueprint(api_bp)
     app.register_blueprint(page_bp)
+    if app.config['DEBUG_PAGES']:
+        from application.pages import page_debug_bp
+        app.register_blueprint(page_debug_bp)
     app.run(port=port)
 
 
